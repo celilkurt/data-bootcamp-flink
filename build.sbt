@@ -1,3 +1,5 @@
+
+
 name := "bootcamp-flink"
 version := "0.1"
 scalaVersion := "2.12.13"
@@ -11,6 +13,6 @@ libraryDependencies ++= Seq(
 
 assemblyMergeStrategy in assembly := {
   case "BUILD" => MergeStrategy.discard
-  case "META-INF/io.netty.versions.properties" => MergeStrategy.last
+  case "META-INF/io.netty.versio.ns.properties" => MergeStrategy.last
   case other => MergeStrategy.defaultMergeStrategy(other)
 }

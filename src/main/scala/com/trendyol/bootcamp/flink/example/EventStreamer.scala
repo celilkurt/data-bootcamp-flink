@@ -13,7 +13,7 @@ import org.apache.flink.streaming.api.windowing.assigners.TumblingEventTimeWindo
 import org.apache.flink.streaming.api.windowing.time.Time
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow
 import org.apache.flink.util.Collector
-import org.slf4j.{Logger, LoggerFactory}
+//import org.slf4j.{Logger, LoggerFactory}
 
 import java.time.Duration
 
@@ -21,9 +21,10 @@ case class UserStats(userId: Int, eventCount: Int, windowStart: Long, windowEnd:
 
 object EventStreamer {
 
-  val logger: Logger = LoggerFactory.getLogger(this.getClass)
+  //val logger: Logger = LoggerFactory.getLogger(this.getClass)
 
-  def main(args: Array[String]): Unit = {
+  def maain(args: Array[String]): Unit = {
+
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     env.enableCheckpointing(60000, CheckpointingMode.AT_LEAST_ONCE)
     env.setRestartStrategy(RestartStrategies.fixedDelayRestart(100, 15000))
