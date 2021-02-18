@@ -49,16 +49,16 @@ object LikelihoodToPurchaseCalculator {
             }
           )
       )
-      .keyBy(_.userId)
+      .keyBy(event => (event.userId, event.productId))
 
     keyedStream
       .window(TumblingEventTimeWindows.of(Time.seconds(20)))
       .process(
-        new ProcessWindowFunction[Event, PurchaseRatio, Int, TimeWindow] {
-          override def process(key: Int, context: Context, elements: Iterable[Event], out: Collector[PurchaseRatio]): Unit = {
+        new ProcessWindowFunction[Event, PurchaseRatio, (Int,Int), TimeWindow] {
+          override def process(key: (Int,Int), context: Context, elements: Iterable[Event], out: Collector[PurchaseRatio]): Unit = {
 
             val ratio = elements.map(event => l2pCoefficients.getOrElse(event.eventType,1.0)).product
-            out.collect(PurchaseRatio(key,ratio))
+            out.collect(PurchaseRatio(key._1, key._2, ratio))
           }
         }
       )
@@ -67,5 +67,5 @@ object LikelihoodToPurchaseCalculator {
     env.execute("Likelihood Streamer")
   }
 
-  case class PurchaseRatio(userId: Int, ratio: Double)
+  case class PurchaseRatio( userId: Int, productId: Int, ratio: Double)
 }
