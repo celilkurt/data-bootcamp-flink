@@ -23,7 +23,7 @@ object EventStreamer {
 
   //val logger: Logger = LoggerFactory.getLogger(this.getClass)
 
-  def maain(args: Array[String]): Unit = {
+  def main(args: Array[String]): Unit = {
 
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     env.enableCheckpointing(60000, CheckpointingMode.AT_LEAST_ONCE)
